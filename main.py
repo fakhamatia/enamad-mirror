@@ -40,12 +40,15 @@ for page_number in page_numbers:
         issued_date = md_1[3].text.strip()
         expire_date = md_1[4].text.strip()
 
-        if jdatetime.datetime.strptime(expire_date, '%Y/%m/%d').date() < jalali_now:
-            if stars == 1:
-                break_main = True
-                break
-            else:
-                continue
+        try:
+            if jdatetime.datetime.strptime(expire_date, '%Y/%m/%d').date() < jalali_now:
+                if stars == 1:
+                    break_main = True
+                    break
+                else:
+                    continue
+        except ValueError:
+            continue
 
         domains.append({
             "id": id,
